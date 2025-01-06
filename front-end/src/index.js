@@ -11,6 +11,11 @@ import {BrowserRouter} from 'react-router-dom'
 // Context
 import { AuthProvider } from './context/AuthContext';
 
+// Redux
+import store from './redux/store';
+// Provider pour envelopper l'App
+import {Provider} from 'react-redux'
+
 /* Pour que l'outil soit correctement géré par les requetes axios, il faut ajouter l'option withCredentials. On ne peut pas le faire avec fetch*/
 axios.defaults.withCredentials = true
 
@@ -18,9 +23,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

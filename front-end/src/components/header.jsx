@@ -11,7 +11,8 @@ export default function Header() {
                 <ul>
                     <li>
                         <NavLink to='/'
-                        className={({isActive}) => isActive ? 'active' : 'inactive' }>
+                        // Pas obligatoire:
+                        className={({isActive}) => isActive ? 'active' : 'inactive' }> 
                         Home</NavLink>
                     </li>
                     <li>
@@ -33,7 +34,9 @@ export default function Header() {
                         }
                     </li>
                     <li>
-                        <NavLink to='/signup'>Inscription</NavLink>
+                        {!auth && 
+                            <NavLink to='/signup'>Inscription</NavLink>
+                        }
                     </li>
                     <li>
                         {auth && auth.role === 'admin' && 

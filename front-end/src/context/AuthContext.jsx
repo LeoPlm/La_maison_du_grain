@@ -11,7 +11,7 @@ export const AuthProvider = ({children}) => {
     // Etat pour suivre l'authentification
     const [isLoading, setIsLoading] = useState(false)
 
-    // Etat pour stocker les infos de l'user connecté
+    // Etat pour stocker les infos du user connecté
     const [auth,setAuth] = useState(null)
 
     // Navigate
@@ -24,10 +24,8 @@ export const AuthProvider = ({children}) => {
     const login = async (dataForm) =>{
         setIsLoading(true)
         try{
-            
             const {data, status} = await axios.post(`http://localhost:8000/api/user/sign`, dataForm) 
             // {withCredentials: true} Pas besoin de le mettre car on l'a rajouté dans l'index axios. 
-
             console.log(data)
             if(status === 200){
                 // Si tout est ok stocker les données du user dans le Localstorage, données stockées par le nav

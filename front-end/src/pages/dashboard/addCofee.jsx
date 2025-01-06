@@ -1,8 +1,10 @@
 import { useState } from "react"
 import axios from 'axios'
+import { useDispatch } from "react-redux";
+import * as ACTIONS from '../../redux/reducer/article.reducer.js'
 
 export const AddCofee = () => {
-
+    const dispatch = useDispatch()
     const imgInput = ["img", "img1", "img2", "img3", "img4"];
 
     const [coffee, setCoffee] = useState({
@@ -15,8 +17,6 @@ export const AddCofee = () => {
         from: '',
         img: []
 })
-
-
 
     const handleChange = (e) =>{
         const {name, value, files} = e.target
@@ -51,9 +51,11 @@ export const AddCofee = () => {
                     },
                 }
             )
+            dispatch(ACTIONS.POST_ARTICLE_SUCCESS(response.data))
             console.log(formData)
         }catch(err){
             console.error(err.message)
+            dispatch(ACTIONS.POST_ARTICLE_FAILURE())
         }
     }
 

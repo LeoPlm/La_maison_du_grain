@@ -9,8 +9,10 @@ import { AddCofee } from './pages/dashboard/addCofee';
 import { UpdateCoffee } from './pages/dashboard/updateCoffee';
 import { UserList } from './pages/dashboard/userList';
 import { SignUp } from './pages/auth/signUp';
+import { Nothing } from './pages/nothing';
 import Login from './pages/auth/login';
 import Layout from './components/layout';
+import ProtectedRoute from './components/protectedRoute';
 
 function App() {
   return (
@@ -19,11 +21,16 @@ function App() {
         <Route index element={<Home/>} />
         <Route path='/articlesview' element={<ArticlesView/>} />
         <Route path='/detail/:id' element={<Details/>} />
-        <Route path='/dashboard' element={<DashboardHome/>}/>
-        <Route path='/dashboard/index' element={<IndexCoffee/>}/>
-        <Route path='/dashboard/addcoffee' element={<AddCofee/>}/>
-        <Route path='/dashboard/updatecoffee/:id' element={<UpdateCoffee/>}/>
-        <Route path='/dashboard/userslist' element={<UserList/>}/>
+        <Route path='*' element={<Nothing/>} />
+        
+        <Route element={<ProtectedRoute/>}>
+          <Route path='/dashboard' element={<DashboardHome/>}/>
+          <Route path='/dashboard/index' element={<IndexCoffee/>}/>
+          <Route path='/dashboard/addcoffee' element={<AddCofee/>}/>
+          <Route path='/dashboard/updatecoffee/:id' element={<UpdateCoffee/>}/>
+          <Route path='/dashboard/userslist' element={<UserList/>}/>
+        </Route>
+
       </Route>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/login' element={<Login/>}/>

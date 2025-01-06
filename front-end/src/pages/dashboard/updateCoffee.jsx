@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import { useDispatch } from "react-redux"
+import * as ACTIONS from '../../redux/reducer/article.reducer.js'
 
 export const UpdateCoffee = () => {
     const {id} = useParams()
-
+    const dispatch = useDispatch()
+    
     const [coffee, setCoffee] = useState({
         name: '',
         content: '',
@@ -18,11 +21,14 @@ export const UpdateCoffee = () => {
 
     useEffect(()=>{
         const fetchCoffee = async () =>{
+            dispatch(ACTIONS.FETCH_ARTICLE_START())
             try{
                 const response = await axios.get(`http://localhost:8000/api/article/get/${id}`, coffee)
                 setCoffee(response.data)
+                dispatch(ACTIONS.UPDATE_ARTICLE_SUCCESS)
             }catch(err){
                 console.error(err.message)
+                dispatch(ACTIONS.UPDATE_ARTICLE_FAILURE())
             }
         }
 
@@ -44,6 +50,7 @@ export const UpdateCoffee = () => {
         try{
             const response = await axios.put(`http://localhost:8000/api/article/update/${id}`, coffee)
             alert("article modifié avec succes")
+            console.log(response.data)
         }catch(err){
             console.log(err)
         }

@@ -30,8 +30,6 @@ export const SignUp = () => {
         }
     }
 
-    
-
     return (
         <>
     <h1>Inscription</h1>

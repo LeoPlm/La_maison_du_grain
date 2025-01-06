@@ -8,6 +8,7 @@ ul{
     align-items: center;
     justify-content: center;
 }
+
 .active{
     color: goldenrod;
     font-weight: bold;
