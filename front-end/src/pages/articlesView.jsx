@@ -26,23 +26,21 @@ export const ArticlesView = () => {
         fetchArticle()
     }, [dispatch])
 
-    if(err) return <><p>Erreur de connexion</p></>
+    if(err) return <p>Erreur de connexion</p>
     
     return (
         <div>
             <h1>ArticlesView</h1>
-            
-                {store && store.map( x =>(
-                    <div key={x._id}>
-                        <Link to={{pathname: `/detail/${x._id}`}}>
-                            <img src={x.picture?.img ? x.picture.img.startsWith("http") ? x.picture.img : `http://localhost:8000${x.picture.img}` : null } 
-                            alt={x.name} width={200} />
-                        </Link>
-                        <p>{x.name}</p>
-                        <p>{x.price} €</p>
-                    </div>
-                ))}
-            
+            {store && store.map( x =>(
+                <div key={x._id}>
+                    <Link to={{pathname: `/detail/${x._id}`}}>
+                        <img src={x.picture?.img ? x.picture.img.startsWith("http") ? x.picture.img : `http://localhost:8000${x.picture.img}` : null } 
+                        alt={x.name} width={200} />
+                    </Link>
+                    <p>{x.name}</p>
+                    <p>{x.price} €</p>
+                </div>
+            ))}
         </div>
     )
 }

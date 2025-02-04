@@ -79,7 +79,7 @@ export const verifyEmail = async (req,res,next) =>{
 export const sign = async (req,res,next) =>{
     try{
     const isUser = await User.findOne({email: req.body.email})
-    if(!isUser) return res.status(404).json("User not found")
+    if(!isUser) return res.status(401).json("Unauthorized")
 
     const comparePassword = await bcrypt.compare(req.body.password,isUser.password)
     if (!comparePassword) return res.status(400).json("Wrong Credentials")
@@ -136,10 +136,52 @@ export const deleteUser = async (req,res,next) =>{
 
 export const updateUser = async (req,res,next)=>{
     try{
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        const {adresse, ...otherUpdates} = req.body
+        const {ville} = adresse[0] || {}
+        let villeId = null
+        
+        if(adresse?.[0]?.ville?.code_postal){
+            const {code_postal, pays, nom: villeNom} = adresse[0].ville
+            let paysId = null
+            if(pays?.name){
+                const existingPays = await Pays.findOne({name: pays.name})
+                if(existingPays){
+                    paysId = existingPays._id
+                } else {
+                    const newPays = await Pays.create({name: pays.name})
+                    paysId = newPays._id
+                }
+            }
+            const existingVille = await Ville.findOne({code_postal, pays: paysId})
+            if(existingVille){
+                villeId = existingVille._id
+            } else {
+                const newVille = await Ville.create({
+                    nom : villeNom || "ville non renseignée",
+                    code_postal,
+                    pays: paysId
+                })
+                villeId = newVille._id
+            }
+        }
+
+        const updatedFields = {
+            ...otherUpdates,
+            adresse: [{
+                rue: ville?.rue || null,
+                ville: villeId
+            }]
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: updatedFields}, {new: true})
         if(!updatedUser) return res.status(404).json("user not found")
-        const populatedUser = updatedUser.populate(['ville', 'pays'])
-        res.status(200).json({message: "user updated",populatedUser})
+            const populatedUser = await updatedUser.populate({
+                path: 'adresse.ville',
+                populate: {
+                    path: 'pays',
+                }
+            })
+        res.status(200).json({message: "user updated", populatedUser})
     }catch(e){
         next(e)
     }
@@ -147,8 +189,34 @@ export const updateUser = async (req,res,next)=>{
 
 export const updateUserAsAdmin = async (req,res, next) =>{
     try{
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-        res.status(200).json({message: "user updated",updatedUser})
+        console.log("Requête reçue")
+        const {adresse, ...otherUpdates} = req.body
+        let villeId = null
+        let updatedAdress = []
+        
+        if(adresse?.length > 0){
+            const {rue, ville} = adresse[0]
+            if(ville){
+                const {nom: nomVille, code_postal, pays} = ville
+                let existingVille = await Ville.findOne({code_postal})
+                if(!existingVille){
+                    const newVille = await Ville.create({code_postal, nom: nomVille, pays})
+                    villeId = newVille._id
+                } else {
+                    villeId = existingVille._id
+                }
+                updatedAdress.push({rue: rue ? rue : undefined , ville: villeId})
+            } 
+        }
+        const updateData = {...otherUpdates}
+        if(req.body.hasOwnProperty("adresse")){
+            updateData.adresse = updatedAdress.length > 0 ? updatedAdress : []
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set:updateData}, {new: true})
+
+        const {password, ...dataWithoutPassword} = updatedUser._doc
+        res.status(200).json({message: 'utilisateur modifié avec succès:', user: dataWithoutPassword})
     }catch(e){
         next(e)
     }

@@ -16,33 +16,39 @@ export default function Login() {
     // v2
     const {login} = useContext(AuthContext)
 
+    const [errMess, setErrMess] = useState('')
     const [connexion, setConnexion] = useState(false)
 
-    const handleChange = (e) =>{
+    const handleChange = e =>{
         const {value, name} = e.target
         setUser(x =>({...x, [name]: value}))
     }
 
-    const handleSubmit = e =>{
-        e.preventDefault()
-        login(user) //C'est récupéré dans dataForm - CALL CONTEXT
-    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        setConnexion(true)
+        setErrMess('')
+        login(user);
+        setConnexion(false)
+        setErrMess('vos identifiants sont incorrects')
+        setConnexion(false)
+    };
 
     return (
         <>
         <h1>Connexion</h1>
         <form onSubmit={handleSubmit}>
             <label htmlFor="email">Votre adresse mail:</label>
-            <input type="email" name="email" id="email" required value={user.email} onChange={handleChange}/>
+            <input type="email" name="email" id="email" value={user.email} onChange={handleChange} onInvalid={()=>setErrMess('adresse mail au format invalide')}/>
 
             <label htmlFor="password">Votre mot de passe</label>
             <input type="password" name='password' id="password" value={user.password} onChange={handleChange}/>
 
             <input type="submit" value="Je me connecte!" />
         </form>
-
+        {errMess && <p>{errMess}</p>}
         <Link to='/signup'>Vous n'avez pas de compte ?</Link>
-        {connexion && <p style={{color: 'green'}}>Vous êtes connecté !</p>}
+        {connexion && <p>Chargement en cours...</p>}
         </>
     )
 }

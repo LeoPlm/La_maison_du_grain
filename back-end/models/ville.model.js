@@ -3,7 +3,7 @@ import mongooseUniqueValidator from "mongoose-unique-validator";
 
 const villeSchema = mongoose.Schema(
     {
-        pays:{type: mongoose.Schema.Types.ObjectId, ref: 'Pays', required: true},
+        pays:{type: mongoose.Schema.Types.ObjectId, ref: 'Pays'},
         nom: {type: String, required: true},
         code_postal: {type: Number, max: 130000, required: true}
     },

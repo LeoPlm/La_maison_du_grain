@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-export default function ProtectedRoute({ children }) {
+const ProtectedRoute = () => {
     const { auth } = useContext(AuthContext);
 
     if (!auth || auth.role !== "admin") {
@@ -11,8 +11,10 @@ export default function ProtectedRoute({ children }) {
                 <h1>Nothing here</h1>
                 <Link to="/">Click here 😥</Link>
             </div>
-        );
+        )
     }
 
-    return children;
+    return <Outlet/>
 }
+
+export default ProtectedRoute

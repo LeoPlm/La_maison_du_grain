@@ -1,33 +1,16 @@
-import { useEffect, useState } from "react";
-import axios from "axios"
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../redux/reducer/user.reducer";
 
 export const UserList = () => {
 
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);  // Pour gérer les erreurs
-
+    const {data, loading, error} = useSelector(state => state.user)
+    const dispatch = useDispatch()
+    
     useEffect(() => {
-const fetchUsers = async () => {
-    try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:8000/api/user/get`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        setUsers(response.data);
-        setLoading(false);
-    } catch (err) {
-        setLoading(false);
-        setError(err.message);
-        console.error(err);
-    }
-};
-
-
-        fetchUsers();
-    }, []);
+        dispatch(fetchUsers())
+    }, [dispatch])
 
     return (
         <>
@@ -35,14 +18,16 @@ const fetchUsers = async () => {
 
             {error && <p>Erreur: {error}</p>}  {/* Afficher l'erreur si elle existe */}
 
-            {users.length === 0 && !loading && !error && <p>Aucun utilisateur trouvé.</p>}
+            {data && data.length === 0 && !loading && !error && <p>Aucun utilisateur trouvé.</p>}
 
-            {!loading && !error && users.map((x) => (
+            {!loading && !error && data.map((x) => (
                 <div key={x._id}>
                     <p>
                         prénom: {x.prenom}  nom: {x.nom} email: {x.email} role: {x.role} adresse: {x.adresse && x.adresse[0] ?`${x.adresse[0].rue} ${x.adresse[0].ville.nom}` : "Adresse non renseignée"}
                     </p>
-                    <button>Modifier les info</button>
+                    <Link to={ `/dashboard/userupdate/${x._id}`}>
+                        <button>Modifier les info</button>
+                    </Link>
                 </div>
             ))}
         </>

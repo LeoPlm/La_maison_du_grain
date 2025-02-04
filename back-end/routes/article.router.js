@@ -13,7 +13,7 @@ router.get('/get', getArticle)
 // Routes dynamiques
 router.get('/get/:articleId', getArticleById)
 
-router.post('/add',  upload.fields([
+router.post('/add', verifieToken, verifyAdmin, upload.fields([
     { name: 'img', maxCount: 1 },
     { name: 'img1', maxCount: 1 },
     { name: 'img2', maxCount: 1 },

@@ -17,13 +17,13 @@ export const UpdateCoffee = () => {
         type: '',
         from: '',
         img: []
-})
+    })
 
     useEffect(()=>{
         const fetchCoffee = async () =>{
             dispatch(ACTIONS.FETCH_ARTICLE_START())
             try{
-                const response = await axios.get(`http://localhost:8000/api/article/get/${id}`, coffee)
+                const response = await axios.get(`http://localhost:8000/api/article/get/${id}`)
                 setCoffee(response.data)
                 dispatch(ACTIONS.UPDATE_ARTICLE_SUCCESS)
             }catch(err){
@@ -31,14 +31,8 @@ export const UpdateCoffee = () => {
                 dispatch(ACTIONS.UPDATE_ARTICLE_FAILURE())
             }
         }
-
         fetchCoffee()
-        
-    }, [id])
-
-    useEffect(() => {
-        console.log(coffee)
-    }, [coffee])
+    }, [dispatch, id])
 
     const handleChange = (e) =>{
         const {value, name} = e.target
@@ -48,9 +42,8 @@ export const UpdateCoffee = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try{
-            const response = await axios.put(`http://localhost:8000/api/article/update/${id}`, coffee)
+            await axios.put(`http://localhost:8000/api/article/update/${id}`, coffee)
             alert("article modifié avec succes")
-            console.log(response.data)
         }catch(err){
             console.log(err)
         }

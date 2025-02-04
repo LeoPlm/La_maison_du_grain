@@ -16,7 +16,7 @@ export const AddCofee = () => {
         type: '',
         from: '',
         img: []
-})
+    })
 
     const handleChange = (e) =>{
         const {name, value, files} = e.target
@@ -25,7 +25,6 @@ export const AddCofee = () => {
         }else {
             setCoffee( c => ({...c, [name]: value}))
         }
-        
     }
 
     const handleSubmit = async (e) =>{

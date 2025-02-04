@@ -10,9 +10,12 @@ import { UpdateCoffee } from './pages/dashboard/updateCoffee';
 import { UserList } from './pages/dashboard/userList';
 import { SignUp } from './pages/auth/signUp';
 import { Nothing } from './pages/nothing';
+import { Cart } from './pages/cart/cart';
 import Login from './pages/auth/login';
 import Layout from './components/layout';
 import ProtectedRoute from './components/protectedRoute';
+import { UserUpdate } from './pages/dashboard/userUpdate';
+
 
 function App() {
   return (
@@ -22,6 +25,7 @@ function App() {
         <Route path='/articlesview' element={<ArticlesView/>} />
         <Route path='/detail/:id' element={<Details/>} />
         <Route path='*' element={<Nothing/>} />
+        <Route path='/cart' element={<Cart/>} />
         
         <Route element={<ProtectedRoute/>}>
           <Route path='/dashboard' element={<DashboardHome/>}/>
@@ -29,6 +33,7 @@ function App() {
           <Route path='/dashboard/addcoffee' element={<AddCofee/>}/>
           <Route path='/dashboard/updatecoffee/:id' element={<UpdateCoffee/>}/>
           <Route path='/dashboard/userslist' element={<UserList/>}/>
+          <Route path='/dashboard/userupdate/:id' element={<UserUpdate/>}/>
         </Route>
 
       </Route>

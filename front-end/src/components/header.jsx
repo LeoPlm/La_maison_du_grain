@@ -39,6 +39,9 @@ export default function Header() {
                         }
                     </li>
                     <li>
+                            <NavLink to='/cart'>Panier</NavLink>
+                    </li>
+                    <li>
                         {auth && auth.role === 'admin' && 
                             <NavLink to='/dashboard'>DashBoard</NavLink>
                         }

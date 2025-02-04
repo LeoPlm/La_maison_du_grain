@@ -26,7 +26,7 @@ export const AuthProvider = ({children}) => {
         try{
             const {data, status} = await axios.post(`http://localhost:8000/api/user/sign`, dataForm) 
             // {withCredentials: true} Pas besoin de le mettre car on l'a rajouté dans l'index axios. 
-            console.log(data)
+            
             if(status === 200){
                 // Si tout est ok stocker les données du user dans le Localstorage, données stockées par le nav
                 // On y met le strict minimum car c'est public

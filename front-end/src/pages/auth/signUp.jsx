@@ -6,7 +6,7 @@ export const SignUp = () => {
 
     const [user, setUser] = useState({
         prenom: '',
-        avatar: '',
+        nom: '',
         email: '',
         password: ''
     })
