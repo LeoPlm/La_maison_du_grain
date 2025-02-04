@@ -15,6 +15,8 @@ import Login from './pages/auth/login';
 import Layout from './components/layout';
 import ProtectedRoute from './components/protectedRoute';
 import { UserUpdate } from './pages/dashboard/userUpdate';
+import { AboutUs } from './pages/aboutUs';
+import { Contact } from './pages/contact';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
         <Route path='/detail/:id' element={<Details/>} />
         <Route path='*' element={<Nothing/>} />
         <Route path='/cart' element={<Cart/>} />
+        <Route path='/quisommesnous' element={<AboutUs/>} />
+        <Route path='/contact' element={<Contact/>} />
         
         <Route element={<ProtectedRoute/>}>
           <Route path='/dashboard' element={<DashboardHome/>}/>

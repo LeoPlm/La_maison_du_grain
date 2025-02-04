@@ -37,8 +37,8 @@ export const SignUp = () => {
         <label htmlFor="prenom">Votre Prénom</label>
         <input type="text" name="prenom" id="prenom" required value={user.prenom} onChange={handleChange}/>
 
-        <label htmlFor="avatar">Votre Avatar</label>
-        <input type="text" name="avatar" id="avatar" required value={user.avatar} onChange={handleChange}/>
+        <label htmlFor="avatar">Votre Nom</label>
+        <input type="text" name="nom" id="nom" required value={user.avatar} onChange={handleChange}/>
 
         <label htmlFor="email">Votre adresse mail:</label>
         <input type="email" name="email" id="email" required value={user.email} onChange={handleChange}/>

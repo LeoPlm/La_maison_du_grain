@@ -24,14 +24,10 @@ export default function Header() {
                         }
                     </li>
                     <li>
-                        {auth && auth.isVerified  && 
                             <NavLink to='/quisommesnous'>Qui sommes-nous ?</NavLink>
-                        }
                     </li>
                     <li>
-                        {auth && auth.isVerified  && 
                             <NavLink to='/contact'>Nous contacter</NavLink>
-                        }
                     </li>
                     <li>
                         {!auth && 
@@ -54,7 +50,6 @@ export default function Header() {
                         }
                     </li>
                 </ul>
-                
             </nav>
         </header>
     )
