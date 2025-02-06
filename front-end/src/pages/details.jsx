@@ -48,7 +48,7 @@ export const Details = () => {
     }
 
     if(error) return <p>Problème de connexion au serveur</p>
-    if (!store) return <p>Chargement en cours...</p>;
+    if (!store) return <p>Chargement en cours...</p>
     
     return (
         <>

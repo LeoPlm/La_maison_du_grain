@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get('/get', verifieToken, verifyAdmin, getAvis)
 
-router.get('/get/:idAvis', getAvisById)
+router.get('/get/:idAvis', verifieToken, getAvisById)
 
 router.post('/add', verifieToken, addAvis)
 

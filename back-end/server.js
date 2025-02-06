@@ -10,6 +10,7 @@ import avisRoutes from "./routes/avis.router.js"
 import articleRoutes from "./routes/article.router.js"
 import commandeRoutes from "./routes/commande.router.js"
 import detailsRoutes from "./routes/details.router.js"
+import contactRoutes from "./routes/contact.router.js"
 
 // Module pour gérer le chemin de fichiers
 import path from "path"
@@ -51,6 +52,7 @@ app.use("/api/avis", avisRoutes)
 app.use("/api/article", articleRoutes)
 app.use("/api/commande", commandeRoutes)
 app.use("/api/details", detailsRoutes)
+app.use("/api/contact", contactRoutes)
 
 // SERVER
 app.listen(PORT, ()=>{

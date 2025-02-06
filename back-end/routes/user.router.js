@@ -20,6 +20,6 @@ router.put("/update-profile/:id", verifieToken, updateUser)
 
 router.put("/update-user/:id", verifieToken, verifyAdmin, updateUserAsAdmin)
 
-router.put("/verify/:token", verifyEmail )
+router.put("/verify/:token", verifyEmail)
 
 export default router

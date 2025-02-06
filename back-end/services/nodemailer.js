@@ -20,12 +20,22 @@ export const sendEmail = async (user, verifieToken) =>{
         to: user.email,
         subject: "vérifier votre email",
         text: `Hello ${user.prenom},\n\nMerci de votre inscription.\n\nCliquez sur ce lien pour vérifier votre email: ${verificationLink}\n\nCordialement,\nLa Maison du Grain`,
-    html: `
+        html: `
         <p>Hello ${user.prenom},</p>
         <p>Merci de votre inscription.</p>
         <p>Cliquez sur ce lien pour vérifier votre email: ${verificationLink} </p>
         <p>Cordialement,<br>La Maison du Grain</p>
     `
     })
+}
 
+export const sendContactForm = async (to, subject, text, html, replyTo) =>{
+    await transporter.sendMail({
+        from: env.EMAIL_USER,
+        to,
+        subject,
+        text,
+        html,
+        replyTo
+    })
 }
