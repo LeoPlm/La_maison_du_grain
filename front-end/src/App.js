@@ -17,6 +17,8 @@ import ProtectedRoute from './components/protectedRoute';
 import { UserUpdate } from './pages/dashboard/userUpdate';
 import { AboutUs } from './pages/aboutUs';
 import { Contact } from './pages/contact';
+import { Account } from './pages/account';
+
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/quisommesnous' element={<AboutUs/>} />
         <Route path='/contact' element={<Contact/>} />
+        <Route path='/profile' element={<Account/>} />
         
         <Route element={<ProtectedRoute/>}>
           <Route path='/dashboard' element={<DashboardHome/>}/>

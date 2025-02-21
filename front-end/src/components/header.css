@@ -2,15 +2,13 @@
     list-style: none;
 }
 
-ul{
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
-}
-
-.active{
+a.nav-item.nav-link.active{
     color: goldenrod;
     font-weight: bold;
-    text-decoration: underline;
+    text-decoration:none;
+}
+
+
+.navbar-nav {
+    align-items:center;
 }

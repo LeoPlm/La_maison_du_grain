@@ -23,7 +23,7 @@ export const UserList = () => {
             {!loading && !error && data.map((x) => (
                 <div key={x._id}>
                     <p>
-                        prénom: {x.prenom}  nom: {x.nom} email: {x.email} role: {x.role} adresse: {x.adresse && x.adresse[0] ?`${x.adresse[0].rue} ${x.adresse[0].ville.nom}` : "Adresse non renseignée"}
+                        prénom: {x.prenom}  nom: {x.nom} email: {x.email} role: {x.role} adresse: {x.adresse && x.adresse[0] ?`${x.adresse[0].rue} ${x.adresse[0]?.ville?.nom}` : "Adresse non renseignée"}
                     </p>
                     <Link to={ `/dashboard/userupdate/${x._id}`}>
                         <button>Modifier les info</button>
@@ -31,5 +31,5 @@ export const UserList = () => {
                 </div>
             ))}
         </>
-    );
-};
+    )
+}
