@@ -111,9 +111,19 @@ export const getUsers = async (req,res,next) =>{
     }
 }
 
-export const getUserById = async (req,res,next) =>{
+export const getUserAsUser = async (req, res, next) =>{
     try{
+    const userId = req.user.id
+    const user = await User.findById(userId).select("-password").populate("adresse.ville")
+    if(!user) return res.status(404).json("user not found")
+    res.status(200).json(user)
+    } catch (err) {
+        next(err)
+    }
+}
 
+export const getUserAsAdmin = async (req,res,next) =>{
+    try{
         const userById = await User.findById(req.params.id).populate("adresse.ville")
         if(!userById) return res.status(404).json("user not found")
         res.status(200).json(userById)
@@ -136,52 +146,36 @@ export const deleteUser = async (req,res,next) =>{
 
 export const updateUser = async (req,res,next)=>{
     try{
-        const {adresse, ...otherUpdates} = req.body
-        const {ville} = adresse[0] || {}
+        const { adresse, ...otherUpdates } = req.body.payload || req.body
         let villeId = null
+        let updatedAdress = []
         
-        if(adresse?.[0]?.ville?.code_postal){
-            const {code_postal, pays, nom: villeNom} = adresse[0].ville
-            let paysId = null
-            if(pays?.name){
-                const existingPays = await Pays.findOne({name: pays.name})
-                if(existingPays){
-                    paysId = existingPays._id
+        if(adresse?.length > 0){
+            const {rue, ville} = adresse[0]
+            if(ville){
+                const {nom: nomVille, code_postal, pays} = ville
+                let existingVille = await Ville.findOne({code_postal})
+                if(!existingVille){
+                    const newVille = await Ville.create({code_postal, nom: nomVille, pays})
+                    villeId = newVille._id
                 } else {
-                    const newPays = await Pays.create({name: pays.name})
-                    paysId = newPays._id
+                    villeId = existingVille._id
                 }
-            }
-            const existingVille = await Ville.findOne({code_postal, pays: paysId})
-            if(existingVille){
-                villeId = existingVille._id
-            } else {
-                const newVille = await Ville.create({
-                    nom : villeNom || "ville non renseignée",
-                    code_postal,
-                    pays: paysId
-                })
-                villeId = newVille._id
-            }
+                updatedAdress.push({rue: rue ? rue : undefined , ville: villeId})
+            } 
+        }
+        const updateData = {...otherUpdates}
+        if(req.body.hasOwnProperty("adresse")){
+            updateData.adresse = updatedAdress.length > 0 ? updatedAdress : []
         }
 
-        const updatedFields = {
-            ...otherUpdates,
-            adresse: [{
-                rue: ville?.rue || null,
-                ville: villeId
-            }]
-        }
+        console.log("Données envoyées pour mise à jour:", JSON.stringify(updateData, null, 2));
 
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: updatedFields}, {new: true})
-        if(!updatedUser) return res.status(404).json("user not found")
-            const populatedUser = await updatedUser.populate({
-                path: 'adresse.ville',
-                populate: {
-                    path: 'pays',
-                }
-            })
-        res.status(200).json({message: "user updated", populatedUser})
+        const updatedUser = await User.findByIdAndUpdate(req.user.id, {$set:updateData}, {new: true})
+        console.log({id : req.user.id}) 
+        const {password, ...dataWithoutPassword} = updatedUser._doc
+        return res.status(200).json({message: 'utilisateur modifié avec succès:', user: dataWithoutPassword})
+        
     }catch(e){
         next(e)
     }
@@ -189,7 +183,6 @@ export const updateUser = async (req,res,next)=>{
 
 export const updateUserAsAdmin = async (req,res, next) =>{
     try{
-        console.log("Requête reçue")
         const {adresse, ...otherUpdates} = req.body
         let villeId = null
         let updatedAdress = []
@@ -216,7 +209,7 @@ export const updateUserAsAdmin = async (req,res, next) =>{
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set:updateData}, {new: true})
 
         const {password, ...dataWithoutPassword} = updatedUser._doc
-        res.status(200).json({message: 'utilisateur modifié avec succès:', user: dataWithoutPassword})
+        return res.status(200).json({message: 'utilisateur modifié avec succès:', user: dataWithoutPassword})
     }catch(e){
         next(e)
     }

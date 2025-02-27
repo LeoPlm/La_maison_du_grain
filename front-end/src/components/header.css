@@ -5,9 +5,12 @@
 a.nav-item.nav-link.active{
     color: goldenrod;
     font-weight: bold;
-    text-decoration:none;
 }
 
+.title-link.active {
+    color: inherit !important;
+    font-weight: normal !important;
+}
 
 .navbar-nav {
     align-items:center;

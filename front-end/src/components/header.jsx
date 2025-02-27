@@ -11,9 +11,24 @@ export default function Header() {
             <Navbar expand="lg" variant="dark" className='p-3'>
                 <Container>
                     <Navbar.Brand className='lobster-font text-dark fs-3'>
-                        La Maison du Grain
+                        <NavLink className='nav-item nav-link title-link' to="/">
+                            La Maison du Grain
+                        </NavLink>
+                        
                     </Navbar.Brand>
 
+                    {auth && 
+                        <NavLink className='nav-item nav-link' to="/profile">
+                            <i className="bi bi-person-fill-check fs-2"></i>
+                        </NavLink>
+                    }
+
+                    {auth && 
+                        <NavLink className='nav-item nav-link' to="/cart">
+                            <i class="bi bi-cart fs-2"></i>
+                        </NavLink>
+                    }
+                    
                     <Navbar.Toggle aria-controls='basic-navbar-nav'/>
 
                     <Navbar.Collapse id='basic-navbar-nav'>

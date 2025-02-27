@@ -1,0 +1,20 @@
+.custom-hover:hover{
+  text-decoration: underline;
+}
+.custom-hover{
+  text-decoration: none;
+}
+
+.carroussel-homepage{
+  max-width: 80%;
+  height: 300px;
+}
+
+.text-brown{
+  color: #835E0E;
+}
+
+.width-custom-home{
+  max-width: 85%;
+  border-radius: 15px;
+}

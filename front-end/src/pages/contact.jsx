@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from 'axios'
+import { Container } from "react-bootstrap"
+import '../styles/contact.css'
 
 export const Contact = () => {
 
@@ -24,8 +26,11 @@ export const Contact = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", width: "30%", gap: "10px"}}>
+    <Container>
+      <h2 className="d-flex justify-content-center mt-3">Une question ou un conseil ?</h2>
+      <h2 className="d-flex justify-content-center">Contactez-nous!</h2>
+      
+      <form onSubmit={handleSubmit} className="d-flex flex-column bg-grey-contact mt-3">
         <label htmlFor="email">E-mail</label>
         <input type="email" id="email" name="email" required onChange={e => setEmail(e.target.value)} value={email}/>
         <label htmlFor="msg">Message :</label>
@@ -34,6 +39,6 @@ export const Contact = () => {
       </form>
       {isemailSent === "success" && <p style={{color: 'green'}}>Votre mail a bien été envoyé</p>}
       {isemailSent === "error" && <p style={{color: 'red'}}>Erreur lors de l'envoi</p>}
-    </div>
+    </Container>
   )
 }

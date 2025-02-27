@@ -5,3 +5,31 @@
 .lobster-font {
   font-family: 'Lobster', cursive;
 }
+
+.bg-sand{
+  background-color: #E09F3E;
+  background-color: rgba(224, 159, 62, 0.90);
+}
+
+.bg-brown-light{
+  background-color: #D2A679;
+}
+
+.bg-brown-dark{
+  background-color: #A0522D;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
