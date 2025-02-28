@@ -27,14 +27,11 @@ export const Account = () => {
   }
 
   const handleSubmit = (e) =>{
-    console.log(dataUser)
     e.preventDefault()
     dispatch(updateUserAsUser({payload: dataUser}))
     .then(() => dispatch(fetchUserByIdAsUser()))
   }
   
-  
-
   if(loading) return <p>Chargement en cours...</p>
 
   return (

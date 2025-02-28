@@ -33,3 +33,11 @@ html, body {
 main {
   flex: 1;
 }
+
+.cinzel{
+  font-family: 'Cinzel', serif;
+}
+
+.montserrat{
+  font-family: 'Montserrat, serif';
+}

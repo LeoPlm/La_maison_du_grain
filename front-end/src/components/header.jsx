@@ -24,7 +24,7 @@ export default function Header() {
                     }
 
                     {auth && 
-                        <NavLink className='nav-item nav-link' to="/cart">
+                        <NavLink className='nav-item nav-link d-xl-none' to="/cart">
                             <i class="bi bi-cart fs-2"></i>
                         </NavLink>
                     }
@@ -32,8 +32,8 @@ export default function Header() {
                     <Navbar.Toggle aria-controls='basic-navbar-nav'/>
 
                     <Navbar.Collapse id='basic-navbar-nav'>
-                        <Nav className='ms-auto'>
-                        <NavLink className='nav-item nav-link' to="/"> Home </NavLink>
+                        <Nav className='ms-auto montserrat'>
+                        <NavLink className='nav-item nav-link montserrat' to="/"> Home </NavLink>
                         <NavLink className='nav-item nav-link' to="/articlesview"> Voir nos produits </NavLink>
                         {auth && <NavLink className='nav-item nav-link' to="/profile">Mon compte</NavLink>}
                         <NavLink className='nav-item nav-link' to="/quisommesnous">Qui sommes-nous ?</NavLink>

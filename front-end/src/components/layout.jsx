@@ -6,11 +6,17 @@ import { Outlet, useLocation } from 'react-router-dom'
 const Layout = () => {
     const location = useLocation()
 
-    const pageWithBackGround = ['/', '/articlesview', '/details/:id', '/profile', 'quisommesnous', '/cart']
+    const pageWithBackGround = ['/', '/articlesview', '/profile', 'quisommesnous', '/cart', '/detail/:id', '/quisommesnous']
 
-    const hasBackGround = pageWithBackGround.some(path => 
-        path.includes(":") ? location.pathname.match(new RegExp(`^${path.replace(":id", "\\d+")}$`)) : location.pathname === path
-    );
+    const hasBackGround = pageWithBackGround.some(path => {
+        if (path.includes(":")) {
+            const regexPath = path.replace(":id", "[\\w-]+")
+            const regex = new RegExp(`^${regexPath}$`)
+            return regex.test(location.pathname)
+        } else {
+            return location.pathname === path
+        }
+    })
 
     return (
         // Ajout de la div root pour étirer le footer en bas de la page via le css

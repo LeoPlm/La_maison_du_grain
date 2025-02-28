@@ -11,7 +11,7 @@ export const Home = () => {
 
     return (
         <div className="text-center">
-            <h2 className="mt-4 fs-6 p-2 bg-brown-light d-inline-block rounded ">ARTISANTS TORREFACTEURS</h2> 
+            <h2 className="mt-4 fs-6 p-2 bg-brown-light d-inline-block rounded cinzel fw-bold">ARTISANTS TORREFACTEURS</h2> 
 
             <Carousel>
                 {img.map((image,i) =>(
@@ -22,7 +22,7 @@ export const Home = () => {
             </Carousel>
 
             
-            <Container>
+            <Container className="col-xl-8">
                 <div className="d-inline-block bg-brown-light rounded mt-5">
                     <h2 className="rounded rounded-lg p-2 d-inline-block bg-brown-dark mt-4 border-0">
                         <Link to={"/articlesview"} className="custom-hover text-dark"> 
@@ -52,9 +52,9 @@ export const Home = () => {
                 </div>
             </Container>
 
-            <section>
-                <div className="bg-sand mt-5 w-100 " >
-                    <div className="d-inline-block bg-brown-light w-75 mt-3 p-3 width-custom-home mb-4">
+            <Container className="col-xl-9">
+                <div className="bg-sand mt-5 w-100 ">
+                    <div className="d-inline-block bg-brown-light w-75 mt-3 p-3 width-custom-home mb-4 ">
                         <h3 className="fw-bold fs-6 mt-3">La Maison du Grain</h3>
                         <h4 className="fs-6 text-brown">Pourquoi notre café est unique au monde ?</h4>
                         <p className="text-start">•Nos grain sont rigoureusement sélectionnés.
@@ -76,7 +76,7 @@ export const Home = () => {
                         aromatique du terroir d’origine.</p>
                     </div>
                 </div>
-            </section>
+            </Container>
         </div>
     )
 }

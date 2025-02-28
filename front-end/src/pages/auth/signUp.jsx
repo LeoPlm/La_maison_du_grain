@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { Container } from "react-bootstrap";
 
 export const SignUp = () => {
 
@@ -50,9 +51,9 @@ export const SignUp = () => {
     }
 
     return (
-        <>
-    <h1>Inscription</h1>
-    <form style={{display: 'flex', flexDirection: 'column', width: "30%"}} onSubmit={handleSubmit}>
+<Container className=" mt-3 bg-grey col-6">
+    <h2 className="cinzel text-center mt-3">Inscription</h2>
+    <form className="col-4 d-flex flex-column"  onSubmit={handleSubmit}>
         <label htmlFor="prenom">Votre Prénom</label>
         <input type="text" name="prenom" id="prenom" required value={user.prenom} onChange={handleChange}/>
 
@@ -84,6 +85,6 @@ export const SignUp = () => {
 
         <Link to='/sign'>Already registered ?</Link>
     </form>
-    </>
+    </Container>
     )
 }
