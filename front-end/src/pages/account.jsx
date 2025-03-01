@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUserByIdAsUser, UPDATE_USER_AS_USER, updateUserAsUser } from "../redux/reducer/user.reducer"
+import {Container} from 'react-bootstrap'
 
 export const Account = () => {
 
@@ -35,43 +36,44 @@ export const Account = () => {
   if(loading) return <p>Chargement en cours...</p>
 
   return (
-    <div>
+    <Container>
+      <h2 className="cinzel bg-brown-light text-center mt-3 resorb-bg rounded p-2 d-flex mx-auto">Mon compte</h2>
+      <div className="bg-brown-light col-xl-8 mx-auto rounded">
+        <form onSubmit={handleSubmit} className="d-flex flex-column bg-brown-light p-3 rounded col-xl-8 mx-auto mt-3">
+          <label htmlFor="firstName">Prénom</label>
+          <input class="form-control" type="text" id="firstName" name="prenom" value={dataUser.prenom} onChange={handleChange}/>
 
-      <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", width: "20%", gap: "1em", marginLeft: "0.25em"}}>
-        <label htmlFor="firstName">Prénom</label>
-        <input type="text" id="firstName" name="prenom" value={dataUser.prenom} onChange={handleChange}/>
+          <label htmlFor="lastName">Nom</label>
+          <input class="form-control" type="text" id="last" name="nom" value={dataUser.nom} onChange={handleChange}/>
 
-        <label htmlFor="lastName">Nom</label>
-        <input type="text" id="last" name="nom" value={dataUser.nom} onChange={handleChange}/>
+          <label htmlFor="email">Adresse mail</label>
+          <input class="form-control" type="email" id="email" name="email" value={dataUser.email} onChange={handleChange}/>
 
-        <label htmlFor="email">Adresse mail</label>
-        <input type="email" id="email" name="email" value={dataUser.email} onChange={handleChange}/>
+          <label htmlFor="role">Statut</label>
+          <select name="role" id="role" value={dataUser.role} onChange={handleChange}>
+            <option value="user">user</option>
+            <option value="admin">admin</option>
+          </select>
 
-        <label htmlFor="role">Statut</label>
-        <select name="role" id="role" value={dataUser.role} onChange={handleChange}>
-          <option value="user">user</option>
-          <option value="admin">admin</option>
-        </select>
-
-        <fieldset style={{display: "flex",justifyContent: "start", alignItems: "start", flexDirection:"column"}}>
-          <legend>Adresse</legend>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor="street">Rue</label>
-            <input type="text" id="street" name="rue" value={dataUser.adresse?.[0]?.rue || ""} onChange={handleChange}/>
-          </div>
-          
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor="city">Ville</label>
-            <input type="text" id="city" name="ville" value={dataUser.adresse?.[0]?.ville?.nom || ""} onChange={handleChange}/>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor="cp">Code postal</label>
-            <input type="text" id="cp" name="code_postal" maxLength="5" pattern="\d{5}" title="Veuillez entrer un code postal" value={dataUser.adresse?.[0]?.ville?.code_postal || ""} onChange={handleChange}/>
-          </div>
-        </fieldset>
-        <input type="submit" value="Mettre à jour"/>
-      </form>
-
-    </div>
+          <fieldset>
+            <legend>Adresse</legend>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label htmlFor="street">Rue</label>
+              <input className="form-control" type="text" id="street" name="rue" value={dataUser.adresse?.[0]?.rue || ""} onChange={handleChange}/>
+            </div>
+            
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label htmlFor="city">Ville</label>
+              <input type="text" id="city" name="ville" value={dataUser.adresse?.[0]?.ville?.nom || ""} onChange={handleChange} className="form-control"/>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <label htmlFor="cp">Code postal</label>
+              <input class="form-control" type="text" id="cp" name="code_postal" maxLength="5" pattern="\d{5}" title="Veuillez entrer un code postal" value={dataUser.adresse?.[0]?.ville?.code_postal || ""} onChange={handleChange}/>
+            </div>
+          </fieldset>
+          <input type="submit" value="Mettre à jour" class="btn btn-dark border-0 mt-4 resorb-bg"/>
+        </form>
+      </div>
+    </Container>
   )
 }

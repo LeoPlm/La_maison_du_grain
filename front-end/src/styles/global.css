@@ -41,3 +41,7 @@ main {
 .montserrat{
   font-family: 'Montserrat, serif';
 }
+
+.bg-grey{
+  background-color: #D9D9D9;
+}

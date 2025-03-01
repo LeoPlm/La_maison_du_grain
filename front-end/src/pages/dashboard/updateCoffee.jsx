@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import * as ACTIONS from '../../redux/reducer/article.reducer.js'
+import { Container } from "react-bootstrap"
 
 export const UpdateCoffee = () => {
     const {id} = useParams()
@@ -58,49 +59,48 @@ export const UpdateCoffee = () => {
         setCoffee(prev => ({
             ...prev,
             picture: updatedPicture
-        }));
-    };
-    
-    
+        }))
+    }
 
     return (
-        <div>
-            <form style={{display: "flex", flexDirection: "column", width: "10%"}} onSubmit={handleSubmit}>
+        <Container>
+            <h2 className="text-center mt-3 cinzel">Modifier café</h2>
+            <form className="d-flex flex-column col-xl-6 mx-auto" onSubmit={handleSubmit}>
                 <label htmlFor="name">Nom du café:</label>
-                <input type="text" name="name" id="name" value={coffee.name} onChange={handleChange}/>
+                <input class="form-control" type="text" name="name" id="name" value={coffee.name} onChange={handleChange}/>
 
                 <label htmlFor="content">Description:</label>
-                <textarea name="content" id="content" value={coffee.content} onChange={handleChange}></textarea>
+                <textarea class="form-control" name="content" id="content" value={coffee.content} onChange={handleChange}></textarea>
 
                 <label htmlFor="from">Origine:</label>
-                <input name="from" id="from" value={coffee.from} onChange={handleChange}/>
+                <input class="form-control" name="from" id="from" value={coffee.from} onChange={handleChange}/>
 
                 <label htmlFor="price">Prix:</label>
-                <input type="number" name="price" id="price" step="0.01" value={coffee.price} onChange={handleChange}/>
+                <input class="form-control" type="number" name="price" id="price" step="0.01" value={coffee.price} onChange={handleChange}/>
 
                 <label htmlFor="intensity">Intensité sur 10:</label>
-                <input type="number" name="intensity" id="intensity" max="10" min="0" value={coffee.intensity} onChange={handleChange}/>
+                <input class="form-control" type="number" name="intensity" id="intensity" max="10" min="0" value={coffee.intensity} onChange={handleChange}/>
                 
                 <label htmlFor="stock">Articles en stock:</label>
-                <input type="number" name="stock" id="stock" min="1" value={coffee.stock} onChange={handleChange}/>
+                <input class="form-control" type="number" name="stock" id="stock" min="1" value={coffee.stock} onChange={handleChange}/>
                 
                 <label htmlFor="type">Type ('grain' ou 'moulu'):</label>
-                <select id="type" name="type" value={coffee.type} onChange={handleChange}>
+                <select class="form-select" id="type" name="type" value={coffee.type} onChange={handleChange}>
                     <option value="" disabled>--Choisir un type--</option>
                     <option value="grain">Grain</option>
                     <option value="moulu">Moulu</option>
                 </select>
 
                 {coffee.picture && Object.entries(coffee.picture).map(([key, value], i) => (
-                <div key={i}>
+                <div className="mt-3" key={i}>
                     <img src={`http://localhost:8000${value}`} alt={`Image ${key}`} width={200}/>
-                    <button onClick={() => deleteImg(key)}>Supprimer l'image</button>
+                    <button className="btn btn-danger ms-2" onClick={() => deleteImg(key)}>Supprimer l'image</button>
                 </div>
                 ))}
 
 
-                <input type="submit" value="Ajouter à l'lindex" />
+                <input type="submit" className="btn btn-success resorb-bg mt-4" value="Ajouter à l'lindex" />
             </form>
-        </div>
+        </Container>
     )
 }

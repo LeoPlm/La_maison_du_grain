@@ -2,10 +2,12 @@ import { useState } from "react"
 import axios from 'axios'
 import { useDispatch } from "react-redux";
 import * as ACTIONS from '../../redux/reducer/article.reducer.js'
+import { Container } from "react-bootstrap";
 
 export const AddCofee = () => {
     const dispatch = useDispatch()
-    const imgInput = ["img", "img1", "img2", "img3", "img4"];
+    const imgInput = ["img", "img1", "img2", "img3", "img4"]
+    const [messSuccess, setMessSuccess] = useState(null)
 
     const [coffee, setCoffee] = useState({
         name: '',
@@ -52,6 +54,7 @@ export const AddCofee = () => {
             )
             dispatch(ACTIONS.POST_ARTICLE_SUCCESS(response.data))
             console.log(formData)
+            setMessSuccess(true)
         }catch(err){
             console.error(err.message)
             dispatch(ACTIONS.POST_ARTICLE_FAILURE())
@@ -59,35 +62,36 @@ export const AddCofee = () => {
     }
 
     return (
-        <div>
-            <form style={{display: "flex", flexDirection: "column", width: "10%"}} onSubmit={handleSubmit}>
+        <Container>
+            <h2 className="cinzel text-center mt-3">Ajouter un café</h2>
+            <form className="d-flex flex-column col-xl-7 mx-auto" onSubmit={handleSubmit}>
                 <label htmlFor="name">Nom du café:</label>
-                <input type="text" name="name" id="name" value={coffee.name} onChange={handleChange}/>
+                <input class="form-control" type="text" name="name" id="name" value={coffee.name} onChange={handleChange}/>
 
                 <label htmlFor="content">Description:</label>
-                <textarea name="content" id="content" value={coffee.content} onChange={handleChange}></textarea>
+                <textarea class="form-control" name="content" id="content" value={coffee.content} onChange={handleChange}></textarea>
 
                 <label htmlFor="from">Origine:</label>
-                <input name="from" id="from" value={coffee.from} onChange={handleChange}/>
+                <input class="form-control" name="from" id="from" value={coffee.from} onChange={handleChange}/>
 
                 <label htmlFor="price">Prix:</label>
-                <input type="number" name="price" id="price" step="0.01" value={coffee.price} onChange={handleChange}/>
+                <input class="form-control" type="number" name="price" id="price" step="0.01" value={coffee.price} onChange={handleChange}/>
 
                 <label htmlFor="intensity">Intensité sur 10:</label>
-                <input type="number" name="intensity" id="intensity" max="10" min="0" value={coffee.intensity} onChange={handleChange}/>
+                <input class="form-control" type="number" name="intensity" id="intensity" max="10" min="0" value={coffee.intensity} onChange={handleChange}/>
                 
                 <label htmlFor="stock">Articles en stock:</label>
-                <input type="number" name="stock" id="stock" min="1" value={coffee.stock} onChange={handleChange}/>
+                <input class="form-control" type="number" name="stock" id="stock" min="1" value={coffee.stock} onChange={handleChange}/>
                 
                 <label htmlFor="type">Type ('grain' ou 'moulu'):</label>
-                <select id="type" name="type" value={coffee.type} onChange={handleChange}>
+                <select class="form-select" id="type" name="type" value={coffee.type} onChange={handleChange}>
                     <option value="" disabled>--Choisir un type--</option>
                     <option value="grain">Grain</option>
                     <option value="moulu">Moulu</option>
                 </select>
 
                 {imgInput.map((imgName, index) => (
-                <div key={imgName}>
+                <div key={imgName} className="mt-3">
                 <label>
                 {index === 0 ? "Image principale (URL):" : `Image ${index} (URL):`}
                 </label>
@@ -101,10 +105,9 @@ export const AddCofee = () => {
                 />
                 </div>
                 ))}
-
-
-                <input type="submit" value="Ajouter à l'lindex" />
+                <input type="submit" className="btn btn-success resorb-bg mt-3" value="Ajouter à l'lindex" />
             </form>
-        </div>
+            {messSuccess && <p className="text-success text-center">Votre café vient d'être ajouté à l'index des ventes!</p>}
+        </Container>
     )
 }

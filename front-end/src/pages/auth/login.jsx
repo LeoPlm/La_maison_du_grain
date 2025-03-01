@@ -43,13 +43,13 @@ export default function Login() {
                 <label htmlFor="email">Votre adresse mail:</label>
                 <input type="email" name="email" id="email" value={user.email} onChange={handleChange} onInvalid={()=>setErrMess('adresse mail au format invalide')} className='rounded'/>
 
-                <label htmlFor="password">Votre mot de passe</label>
+                <label htmlFor="password">Votre mot de passe:</label>
                 <input type="password" name='password' id="password" value={user.password} onChange={handleChange} className='rounded'/>
 
                 <input type="submit" value="Connexion" className='mt-4 btn btn-success resorb-bg' />
             </form>
             {errMess && <p className='mt-2 text-center text-danger fw-bold'>{errMess}</p>}
-            <Link to='/signup' className='d-flex justify-content-end text-dark'>Vous n'avez pas de compte ?</Link>
+            <Link to='/signup' className="d-flex justify-content-end text-dark">Vous n'avez pas de compte ?</Link>
             {connexion && <p>Chargement en cours...</p>}
         </Container>
     )

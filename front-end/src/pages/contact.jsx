@@ -27,15 +27,16 @@ export const Contact = () => {
 
   return (
     <Container>
-      <h2 className="d-flex justify-content-center mt-3">Une question ou un conseil ?</h2>
-      <h2 className="d-flex justify-content-center">Contactez-nous!</h2>
+      <h2 className="d-flex justify-content-center mt-3 cinzel">Une question ou un conseil ?</h2>
+      <h2 className="d-flex justify-content-center cinzel">Contactez-nous!</h2>
       
-      <form onSubmit={handleSubmit} className="d-flex flex-column bg-grey-contact mt-3">
-        <label htmlFor="email">E-mail</label>
-        <input type="email" id="email" name="email" required onChange={e => setEmail(e.target.value)} value={email}/>
-        <label htmlFor="msg">Message :</label>
-        <textarea name="msg" id="msg" required placeholder="écrivez quelque chose ici..." onChange={e => setMessage(e.target.value)} value={message}></textarea>
-        <input type="submit" value="envoyer" />
+      <form onSubmit={handleSubmit} className="d-flex flex-column bg-grey-contact mt-3 col-xl-8 mx-auto p-4">
+        <label htmlFor="email" className="form-label">E-mail</label>
+        <input type="email" id="email" name="email" required onChange={e => setEmail(e.target.value)} value={email} className="form-control"/>
+        
+        <label htmlFor="msg" className="form-label">Message :</label>
+        <textarea name="msg" id="msg" required placeholder="écrivez quelque chose ici..." onChange={e => setMessage(e.target.value)} value={message} className="form-control"></textarea>
+        <input type="submit" value="envoyer" className="btn btn-success resorb-bg bg-dark mt-3 border-0"/>
       </form>
       {isemailSent === "success" && <p style={{color: 'green'}}>Votre mail a bien été envoyé</p>}
       {isemailSent === "error" && <p style={{color: 'red'}}>Erreur lors de l'envoi</p>}

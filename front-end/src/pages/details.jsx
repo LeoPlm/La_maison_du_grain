@@ -56,7 +56,7 @@ export const Details = () => {
         <>
         <Container className="d-flex flex-column">
             <h4 className="mt-3">
-                <span className="bg-brown-light rounded p-1">{store.name}</span>
+                <span className="bg-brown-light rounded p-1 cinzel">{store.name}</span>
             </h4>
             {store?.picture && Object.values(store.picture).map((x, i) => (
                 <div 
@@ -73,7 +73,6 @@ export const Details = () => {
             ))} 
             <div>
             </div>
-            {console.log(store)}
             <div className="bg-brown-light mt-3 d-flex flex-column rounded mx-auto col-8">
                 <h5 className="fw-bold d-flex ms-3 mt-2">{`café du ${store.from}`}</h5>
                 <p className="ms-3"><i>Intensité du café</i> - {store.intensity}/10</p>
@@ -88,7 +87,6 @@ export const Details = () => {
             </select>
             
 
-            
             <Row className="mx-auto mt-3">
                 <Col xs="auto">
                     <button onClick={handleClickLess} aria-label="Diminuer la quantité">-</button>
@@ -102,7 +100,7 @@ export const Details = () => {
                     {addedToCart && <p className="text-success">Votre article a bien été ajouté au panier !</p>}
                 </Col>
                 <Col>
-                    <p className="bg-brown-light d-inline-block rounded p-2">Prix : {(store.price)*numberOfCoffee}</p>
+                    <p className="bg-brown-light d-inline-block rounded p-2">Prix : {(store.price)*numberOfCoffee} €</p>
                 </Col>
             </Row>
             </Container>

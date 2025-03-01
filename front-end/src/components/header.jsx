@@ -23,8 +23,8 @@ export default function Header() {
                         </NavLink>
                     }
 
-                    {auth && 
-                        <NavLink className='nav-item nav-link d-xl-none' to="/cart">
+                    { 
+                        <NavLink className='ms-2 nav-item nav-link' to="/cart">
                             <i class="bi bi-cart fs-2"></i>
                         </NavLink>
                     }

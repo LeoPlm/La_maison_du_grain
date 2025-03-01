@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUserById, UPDATE_USER, updateUser } from "../../redux/reducer/user.reducer"
+import { Container } from "react-bootstrap"
 
 export const UserUpdate = () => {
 
@@ -37,9 +38,10 @@ export const UserUpdate = () => {
   if(loading) return <p>Chargement en cours...</p>
 
   return (
-    <div>
+    <Container>
 
-      <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", width: "20%", gap: "1em", marginLeft: "0.25em"}}>
+      <h2 className="text-center mt-3 cinzel">Modification utilisateur</h2>
+      <form onSubmit={handleSubmit} className="d-flex flex-column col-xl-6 mx-auto">
         <label htmlFor="firstName">Prénom</label>
         <input type="text" id="firstName" name="prenom" value={dataUserAsAdmin.prenom} onChange={handleChange}/>
 
@@ -55,24 +57,20 @@ export const UserUpdate = () => {
           <option value="admin">admin</option>
         </select>
 
-        <fieldset style={{display: "flex",justifyContent: "start", alignItems: "start", flexDirection:"column"}}>
+        <fieldset className="d-flex flex-column">
           <legend>Adresse</legend>
-          <div style={{ display: "flex", flexDirection: "column" }}>
             <label htmlFor="street">Rue</label>
             <input type="text" id="street" name="rue" value={dataUserAsAdmin.adresse?.[0] ? dataUserAsAdmin.adresse?.[0].rue : ''} onChange={handleChange}/>
-          </div>
-          
-          <div style={{ display: "flex", flexDirection: "column" }}>
+
             <label htmlFor="city">Ville</label>
             <input type="text" id="city" name="ville" value={dataUserAsAdmin.adresse?.[0] ? dataUserAsAdmin.adresse?.[0].ville?.nom : ''} onChange={handleChange}/>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+
             <label htmlFor="cp">Code postal</label>
             <input type="text" id="cp" name="code_postal" maxLength="5" pattern="\d{5}" title="Veuillez entrer un code postal" value={dataUserAsAdmin.adresse?.[0] ? dataUserAsAdmin.adresse?.[0].ville?.code_postal : ''} onChange={handleChange}/>
-          </div>
+
         </fieldset>
-        <input type="submit" value="Mettre à jour"/>
+        <input type="submit" value="Mettre à jour" className="btn btn-dark resorb-bg mt-3 border-0"/>
       </form>
-    </div>
+    </Container>
   )
 }
