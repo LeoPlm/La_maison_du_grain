@@ -45,6 +45,7 @@ export default function Login() {
 
                 <label htmlFor="password">Votre mot de passe:</label>
                 <input type="password" name='password' id="password" value={user.password} onChange={handleChange} className='rounded'/>
+                <p className='text-secondary text-decoration-underline'>Mot de passe oublié ?</p>
 
                 <input type="submit" value="Connexion" className='mt-4 btn btn-success resorb-bg' />
             </form>

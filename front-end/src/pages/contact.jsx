@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from 'axios'
 import { Container } from "react-bootstrap"
 import '../styles/contact.css'
+import { API_URL } from "../config/api"
 
 export const Contact = () => {
 
@@ -13,7 +14,7 @@ export const Contact = () => {
     e.preventDefault()
     setIsEmailSent("loading")
     try{
-      await axios.post(`http://localhost:8000/api/contact/send`, {email, message})
+      await axios.post(`${API_URL}/api/contact/send`, {email, message})
       setIsEmailSent("success")
       setEmail("");
       setMessage("")

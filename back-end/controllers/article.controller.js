@@ -40,40 +40,34 @@ export const getArticleByDescendingPrice = async (req,res,next) =>{
 
 export const addArticle = async (req, res, next) => {
     try {
-        // Vérifie la structure de req.files
-        console.log(req.files);
 
         // Récupérer les images en utilisant Object.values pour aplatir les fichiers dans un tableau
-        const images = Object.values(req.files).flat();
+        const images = Object.values(req.files).flat()
 
         // Crée un objet contenant les chemins des images
         const pathImgExtrated = {
             img: `/uploads/${images[0].filename}`,  // Première image obligatoire (img)
         };
 
-        // Si d'autres images sont présentes, les ajouter dans img1, img2, etc.
+        // Si d'autres images sont présentes, les ajouter dans img1, img2...
         for (let i = 1; i < images.length; i++) {
             pathImgExtrated[`img${i}`] = `/uploads/${images[i].filename}`;
         }
 
-        // Crée l'article avec les informations reçues dans req.body et les images
         const articleData = {
             ...req.body,
             picture: pathImgExtrated // Envoie l'objet `picture` avec les images
         };
 
-        // Crée l'article dans la base de données
-        const newArticle = await Article.create(articleData);
+        const newArticle = await Article.create(articleData)
 
-        // Réponse réussie
-        res.status(201).json({ message: "Article créé avec succès", article: newArticle });
+        res.status(201).json({ message: "Article créé avec succès", article: newArticle })
 
     } catch (err) {
-        // Gestion des erreurs
-        console.error(err);
-        res.status(500).json({ error: "Erreur lors de la création de l'article", details: err.message });
+        console.error(err)
+        res.status(500).json({ error: "Erreur lors de la création de l'article", details: err.message })
     }
-};
+}
 
 
 

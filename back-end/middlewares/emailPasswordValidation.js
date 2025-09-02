@@ -6,7 +6,7 @@ export const validationEmailPassword = (req,res,next) =>{
         return res.status(400).json({message: "Invalid email format"})
     }
 
-    if (password.length <8){
+    if (password.length <12){
         return res.status(400).json({message: "Your password must contain at least 8 characters"})
     }
 

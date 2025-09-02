@@ -17,7 +17,6 @@ export const Account = () => {
 
   const handleChange = (e) =>{
     const {name, value} = e.target
-    console.log(value)
     if(name === "rue"){
       dispatch(UPDATE_USER_AS_USER({...dataUser, adresse: [{...dataUser.adresse[0], [name] : value}]}))
     }else if(name === "ville" || name === 'code_postal'){

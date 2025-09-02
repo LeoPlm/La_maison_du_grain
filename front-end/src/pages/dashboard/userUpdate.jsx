@@ -30,7 +30,6 @@ export const UserUpdate = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault()
-    console.log(dataUserAsAdmin)
     dispatch(updateUser({id, payload: dataUserAsAdmin}))
     .then(() => dispatch(fetchUserById(id)))
   }

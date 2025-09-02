@@ -4,6 +4,7 @@ import axios from "axios"
 import { useDispatch } from "react-redux"
 import * as ACTIONS from '../../redux/reducer/article.reducer.js'
 import { Container } from "react-bootstrap"
+import { API_URL } from "../../config/api.js"
 
 export const UpdateCoffee = () => {
     const {id} = useParams()
@@ -24,7 +25,7 @@ export const UpdateCoffee = () => {
         const fetchCoffee = async () =>{
             dispatch(ACTIONS.FETCH_ARTICLE_START())
             try{
-                const response = await axios.get(`http://localhost:8000/api/article/get/${id}`)
+                const response = await axios.get(`${API_URL}/api/article/get/${id}`)
                 setCoffee(response.data)
                 dispatch(ACTIONS.UPDATE_ARTICLE_SUCCESS)
             }catch(err){
@@ -43,7 +44,7 @@ export const UpdateCoffee = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:8000/api/article/update/${id}`, coffee)
+            await axios.put(`${API_URL}/api/article/update/${id}`, coffee)
             alert("article modifié avec succes")
         }catch(err){
             console.log(err)
@@ -93,7 +94,7 @@ export const UpdateCoffee = () => {
 
                 {coffee.picture && Object.entries(coffee.picture).map(([key, value], i) => (
                 <div className="mt-3" key={i}>
-                    <img src={`http://localhost:8000${value}`} alt={`Image ${key}`} width={200}/>
+                    <img src={`${API_URL}${value}`} alt={`Image ${key}`} width={200}/>
                     <button className="btn btn-danger ms-2" onClick={() => deleteImg(key)}>Supprimer l'image</button>
                 </div>
                 ))}

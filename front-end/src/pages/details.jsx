@@ -5,6 +5,7 @@ import * as ACTIONS from '../redux/reducer/article.reducer.js'
 import { ADD_TO_CART } from '../redux/reducer/cart.reducer.js'; 
 import { Container, Row, Col } from "react-bootstrap";
 import '../styles/details.css'
+import { API_URL } from "../config/api"
 
 export const Details = () => {
 
@@ -19,7 +20,7 @@ export const Details = () => {
         const fetchArticle = async () =>{
             dispatch(ACTIONS.FETCH_ARTICLE_START())
             try{
-                const response = await fetch(`http://localhost:8000/api/article/get/${id}`)
+                const response = await fetch(`${API_URL}/api/article/get/${id}`)
                 const data = await response.json()
                 dispatch(ACTIONS.FETCH_ARTICLEID_SUCCESS(data))
             }catch(err){
@@ -64,7 +65,7 @@ export const Details = () => {
                     className="d-inline-flex justify-content-center my-3 p-2 custom-negative-margin" 
                 >
                     <img 
-                        src={`http://localhost:8000${x}`} 
+                        src={`${API_URL}${x}`} 
                         alt={store.name} 
                         width={200} 
                         className="rounded"

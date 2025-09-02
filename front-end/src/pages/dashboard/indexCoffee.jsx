@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { API_URL } from "../../config/api"
 
 export const IndexCoffee = () => {
 
@@ -11,7 +12,7 @@ export const IndexCoffee = () => {
     useEffect(() =>{
       const fetchCoffee = async () =>{
         try{
-          const response = await fetch(`http://localhost:8000/api/article/get`)
+          const response = await fetch(`${API_URL}/api/article/get`)
           const data = await response.json()
           setCoffee(data)
         }catch(err){
@@ -24,7 +25,7 @@ export const IndexCoffee = () => {
     const handleClick = async(articleId) =>{
       const deleteCoffee = async() =>{
         try{
-          await axios.delete(`http://localhost:8000/api/article/delete/${articleId}`)
+          await axios.delete(`${API_URL}/api/article/delete/${articleId}`)
           setCoffee(prev => prev.filter(x => x._id !== articleId))
         }catch(err){
           setError(true)
@@ -59,7 +60,7 @@ export const IndexCoffee = () => {
                         <td>{x.name}</td>
                         <td>
                             <img 
-                                src={`http://localhost:8000${x.picture.img}`} 
+                                src={`${API_URL}${x.picture.img}`} 
                                 alt={x.name} 
                                 width={100} 
                                 className="img-fluid rounded"

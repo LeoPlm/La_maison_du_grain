@@ -29,7 +29,6 @@ export const getCommandeEnCours = async(req,res,next) =>{
     }catch (e){
         next(e)
     }
-    
 }
 
 export const createCommande = async (req,res,next) =>{
@@ -40,6 +39,8 @@ export const createCommande = async (req,res,next) =>{
         const total = populatedCommande.details.reduce((total, details) =>{
                 return total + details.subtotal
         }, 0)
+        populatedCommande.total = total
+        await populatedCommande.save()
         res.status(201).json({populatedCommande, total})
     }catch(e){
         next(e)

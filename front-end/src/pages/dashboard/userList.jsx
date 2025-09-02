@@ -52,7 +52,6 @@ export const UserList = () => {
                     ))}
                 </tbody>
             </table>
-             
         </Container>
     )
 }

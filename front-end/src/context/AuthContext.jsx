@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config/api.js"
 
 // Pour communiquer avec notre API
 import axios from 'axios'
@@ -22,9 +23,10 @@ export const AuthProvider = ({children}) => {
     }, [])
 
     const login = async (dataForm) =>{
+        console.log(API_URL)
         setIsLoading(true)
         try{
-            const {data, status} = await axios.post(`http://localhost:8000/api/user/sign`, dataForm) 
+            const {data, status} = await axios.post(`${API_URL}/api/user/sign`, dataForm) 
             // {withCredentials: true} Pas besoin de le mettre car on l'a rajouté dans l'index axios. 
             
             if(status === 200){

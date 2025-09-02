@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Container } from "react-bootstrap";
+import { API_URL } from "../../config/api.js"
 
 export const SignUp = () => {
-
     const [user, setUser] = useState({
         prenom: '',
         nom: '',
@@ -39,7 +39,7 @@ export const SignUp = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try{
-            const response = await axios.post(`http://localhost:8000/api/user/signup`, user)
+            const response = await axios.post(`${API_URL}/api/user/signup`, user)
             if (response.status === 201) {
                 console.log("L'utilisateur a bien été enregistré", response.data);
             } else {

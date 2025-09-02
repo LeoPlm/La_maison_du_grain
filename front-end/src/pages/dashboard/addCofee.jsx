@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useDispatch } from "react-redux";
 import * as ACTIONS from '../../redux/reducer/article.reducer.js'
 import { Container } from "react-bootstrap";
+import { API_URL } from "../../config/api.js"
 
 export const AddCofee = () => {
     const dispatch = useDispatch()
@@ -45,7 +46,7 @@ export const AddCofee = () => {
             formData.append(imgName, image);
         })
         try{
-            const response = await axios.post(`http://localhost:8000/api/article/add`, formData,
+            const response = await axios.post(`${API_URL}/api/article/add`, formData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -53,7 +54,6 @@ export const AddCofee = () => {
                 }
             )
             dispatch(ACTIONS.POST_ARTICLE_SUCCESS(response.data))
-            console.log(formData)
             setMessSuccess(true)
         }catch(err){
             console.error(err.message)
@@ -107,7 +107,7 @@ export const AddCofee = () => {
                 ))}
                 <input type="submit" className="btn btn-success resorb-bg mt-3" value="Ajouter à l'lindex" />
             </form>
-            {messSuccess && <p className="text-success text-center">Votre café vient d'être ajouté à l'index des ventes!</p>}
+            {messSuccess && <p className="text-success text-center ">Votre café vient d'être ajouté à l'index des ventes!</p>}
         </Container>
     )
 }
