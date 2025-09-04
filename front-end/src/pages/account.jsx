@@ -48,12 +48,6 @@ export const Account = () => {
           <label htmlFor="email">Adresse mail</label>
           <input class="form-control" type="email" id="email" name="email" value={dataUser.email} onChange={handleChange}/>
 
-          <label htmlFor="role">Statut</label>
-          <select name="role" id="role" value={dataUser.role} onChange={handleChange}>
-            <option value="user">user</option>
-            <option value="admin">admin</option>
-          </select>
-
           <fieldset>
             <legend>Adresse</legend>
             <div style={{ display: "flex", flexDirection: "column" }}>
