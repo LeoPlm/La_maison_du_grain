@@ -6,6 +6,7 @@ import * as ACTIONS from '../redux/reducer/article.reducer.js'
 import { Container, Card, Col, Row } from "react-bootstrap"
 
 import { API_URL } from "../config/api.js"
+import { Spinner } from "react-bootstrap"   
 
 export const ArticlesView = () => {
     const dispatch = useDispatch() 
@@ -27,7 +28,11 @@ export const ArticlesView = () => {
     }, [dispatch])
 
     if(err) return <p>Erreur de connexion</p>
-    
+    if(store.loading) return (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+            <Spinner animation="border" variant="primary" />
+        </div>
+    )
     return (
         <div>
             <div className="bg-sand col-8 d-flex flex-column mt-4 mx-auto rounded p-3">
@@ -63,7 +68,8 @@ export const ArticlesView = () => {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                    ))}
+                        ))
+                    }
                 </Row>
             </Container>
             
