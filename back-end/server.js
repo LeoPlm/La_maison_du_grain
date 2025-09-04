@@ -38,7 +38,7 @@ mongoose
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://la-maison-du-grain.vercel.app"],
     credentials: true // Permet les cookies
 }));
 // Middleware qui permet de servir les fichiers statiques du dossier uploads. Il rend les fichiers uploadés, comme les images, accessible via l'url '/uploads' .
