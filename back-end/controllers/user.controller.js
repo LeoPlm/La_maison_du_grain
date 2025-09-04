@@ -88,6 +88,16 @@ export const sign = async (req,res,next) =>{
         return res.status(403).json({message: 'veuillez vérifier vtre email pour accéder à cette fonctionnalité'})
     }
 
+    const cookieOptions = {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+    };
+
+    if (process.env.NODE_ENV === "development") {
+        cookieOptions.secure = false;
+    }
+
     // Création du token de connexion
     const token = jwt.sign(
     {id: isUser._id, role: isUser.role},
@@ -96,7 +106,7 @@ export const sign = async (req,res,next) =>{
 
     const {password, ...others} = isUser._doc
 
-    return res.cookie("access_token", token, {httpOnly: true}).status(200).json(others) //httpOnly: true protège des attaques XSS
+    return res.cookie("access_token", token, cookieOptions).status(200).json(others) //httpOnly: true protège des attaques XSS
     }catch(err){
         next(err)
     }

@@ -22,13 +22,13 @@ export const fetchUserById = createAsyncThunk("user/fetchUserById", async (id) =
 
 // Récupérer ses données en tant qu'utilisateur
 export const fetchUserByIdAsUser = createAsyncThunk("user/fetchUserByIdAsUser", async() =>{
-  const response = await axios.get(`${API_URL}/api/user/get-user-as-user`)
+  const response = await axios.get(`${API_URL}/api/user/get-user-as-user`, { withCredentials: true })
   return response.data
 })
 
 // Mettre à jour ses données en tant qu'utilisateur
 export const updateUserAsUser = createAsyncThunk("user/updateUserAsUser", async (payload) =>{
-  const response = await axios.put(`${API_URL}/api/user/update-profile`, payload)
+  const response = await axios.put(`${API_URL}/api/user/update-profile`, payload, { withCredentials: true })
   return response.data
 })
 

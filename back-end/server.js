@@ -3,7 +3,6 @@ import {env} from "./config/index.js"
 import mongoose from "mongoose"
 import cookieParser from "cookie-parser"
 import cors from "cors" 
-import session from "express-session"
 
 // ROUTES
 import userRoutes from "./routes/user.router.js"
@@ -48,12 +47,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 // Ce middleware permet de traiter les données envoyées depuis un formulaire html. Extended: true permet de gérer les objets imbriqué dans les données du formulaire.
 app.use(express.urlencoded({extended: true}))
 // Config pour que chrome accepte les cookies cross-origin
-app.use(session({
-    secret : env.SESSION_SECRET,
-    resave : false,
-    saveUninitialized : false,
-    cookie : {secure : true, httpOnly : true, sameSite : 'none'}
-}))
+// Définition de l'objet cookieOptions
+
 // PREFIX ROUTES
 app.use("/api/user", userRoutes)
 app.use("/api/avis", avisRoutes)
