@@ -23,7 +23,6 @@ export const AuthProvider = ({children}) => {
     }, [])
 
     const login = async (dataForm) =>{
-        console.log(API_URL)
         setIsLoading(true)
         try{
             const {data, status} = await axios.post(`${API_URL}/api/user/sign`, dataForm) 

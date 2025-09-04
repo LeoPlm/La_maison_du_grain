@@ -16,10 +16,9 @@ export default function Login() {
     // const login = authcontext.login
 
     // v2
-    const {login} = useContext(AuthContext)
+    const {login, isLoading} = useContext(AuthContext)
 
     const [errMess, setErrMess] = useState('')
-    const [connexion, setConnexion] = useState(false)
 
     const handleChange = e =>{
         const {value, name} = e.target
@@ -27,13 +26,10 @@ export default function Login() {
     }
 
     const handleSubmit = e => {
-        e.preventDefault();
-        setConnexion(true)
+        e.preventDefault()
         setErrMess('')
-        login(user);
-        setConnexion(false)
+        login(user)
         setErrMess('vos identifiants sont incorrects')
-        setConnexion(false)
     }
 
     return (
@@ -46,12 +42,10 @@ export default function Login() {
                 <label htmlFor="password">Votre mot de passe:</label>
                 <input type="password" name='password' id="password" value={user.password} onChange={handleChange} className='rounded'/>
                 <p className='text-secondary text-decoration-underline'>Mot de passe oublié ?</p>
-
                 <input type="submit" value="Connexion" className='mt-4 btn btn-success resorb-bg' />
             </form>
-            {errMess && <p className='mt-2 text-center text-danger fw-bold'>{errMess}</p>}
+            {errMess && !isLoading && <p className='mt-2 text-center text-danger fw-bold'>{errMess}</p>}
             <Link to='/signup' className="d-flex justify-content-end text-dark">Vous n'avez pas de compte ?</Link>
-            {connexion && <p>Chargement en cours...</p>}
         </Container>
     )
 }

@@ -2,3 +2,7 @@
   margin-left: 15vh; 
   margin-right: 15vh; 
 }
+
+.min-width-price{
+  min-width: 120px;
+}

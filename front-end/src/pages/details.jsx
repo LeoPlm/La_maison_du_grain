@@ -55,56 +55,58 @@ export const Details = () => {
     
     return (
         <>
-        <Container className="d-flex flex-column">
-            <h4 className="mt-3">
-                <span className="bg-brown-light rounded p-1 cinzel">{store.name}</span>
-            </h4>
-            {store?.picture && Object.values(store.picture).map((x, i) => (
-                <div 
-                    key={i} 
-                    className="d-inline-flex justify-content-center my-3 p-2 custom-negative-margin" 
-                >
-                    <img 
-                        src={`${API_URL}${x}`} 
-                        alt={store.name} 
-                        width={200} 
-                        className="rounded"
-                    />
+            <Container className="d-flex flex-column">
+                <h4 className="mt-3">
+                    <span className="bg-brown-light rounded p-1 cinzel">{store.name}</span>
+                </h4>
+                {store?.picture && Object.values(store.picture).map((x, i) => (
+                    <div 
+                        key={i} 
+                        className="d-inline-flex justify-content-center my-3 p-2 custom-negative-margin" 
+                    >
+                        <img 
+                            src={`${API_URL}${x}`} 
+                            alt={store.name} 
+                            width={200} 
+                            className="rounded"
+                        />
+                    </div>
+                ))} 
+                <div>
                 </div>
-            ))} 
-            <div>
-            </div>
-            <div className="bg-brown-light mt-3 d-flex flex-column rounded mx-auto col-8">
-                <h5 className="fw-bold d-flex ms-3 mt-2">{`café du ${store.from}`}</h5>
-                <p className="ms-3"><i>Intensité du café</i> - {store.intensity}/10</p>
-                <span className="text-decoration-underline ms-3">Description :</span>
-                <p className="ms-3">{store.content}</p>
-                <p className="ms-3"> <i>Poids</i> : 250g</p>
-            </div>
-            
-            <select className="col-7 mx-auto mt-3">
-                <option value="grain">Mouture: Grain</option>
-                <option value="moulu">Mouture: Moulu</option>
-            </select>
-            
+                <div className="bg-brown-light mt-3 d-flex flex-column rounded mx-auto col-8">
+                    <h5 className="fw-bold d-flex ms-3 mt-2">{`Origine du café : ${store.from}`}</h5>
+                    <p className="ms-3"><i>Intensité du café</i> - {store.intensity}/10</p>
+                    <span className="text-decoration-underline ms-3">Description :</span>
+                    <p className="ms-3">{store.content}</p>
+                    <p className="ms-3"> <i>Poids</i> : 250g</p>
+                </div>
+                
+                <select className="col-7 mx-auto mt-3">
+                    <option value="grain">Mouture: Grain</option>
+                    <option value="moulu">Mouture: Moulu</option>
+                </select>
+                
 
-            <Row className="mx-auto mt-3">
-                <Col xs="auto">
-                    <button onClick={handleClickLess} aria-label="Diminuer la quantité">-</button>
-                    <span className="mx-2 bg-white w-100">{numberOfCoffee}</span>
-                    <button onClick={handleClickPlus} aria-label="Augmenter la quantité">+</button>
-                </Col>
-                <Col xs="auto">
-                    <button onClick={() => handleClick(store)}>Ajouter au panier</button>
-                </Col>
-                <Col xs={12} className="mt-2">
-                    {addedToCart && <p className="text-success">Votre article a bien été ajouté au panier !</p>}
-                </Col>
-                <Col>
-                    <p className="bg-brown-light d-inline-block rounded p-2">Prix : {(store.price)*numberOfCoffee} €</p>
-                </Col>
-            </Row>
+                <Row className="mx-auto mt-3">
+                    <Col xs="auto" className="d-flex align-items-center">
+                        <div className="d-flex rounded overflow-hidden">
+                            <button onClick={handleClickLess} aria-label="Diminuer la quantité" className="bg-brown-light border-0 px-2 py-1">-</button>
+                            <span className="bg-white d-flex align-items-center justify-content-center px-3 border-left border-right">{numberOfCoffee}</span>
+                            <button onClick={handleClickPlus} aria-label="Augmenter la quantité" className="bg-brown-light border-0 px-2 py-1">+</button>    
+                        </div>
+                    </Col>
+                    <Col>
+                        <button onClick={() => handleClick(store)} className="rounded bg-brown-light p-2 text-white w-100 border-0">Ajouter au panier</button>
+                    </Col>
+                    <Col xs={12} className="mt-2">
+                        {addedToCart && <p className="text-success fw-bold">Votre article a bien été ajouté au panier !</p>}
+                    </Col>
+                    <Col>
+                        <p className="bg-brown-light rounded p-2 text-center mb-0 mt-1 min-width-price">Prix : {(store.price)*numberOfCoffee} €</p>
+                    </Col>
+                </Row>
             </Container>
-            </>
+        </>
     )
 }

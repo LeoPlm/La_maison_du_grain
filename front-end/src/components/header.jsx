@@ -5,7 +5,7 @@ import './header.css'
 import {AuthContext} from '../context/AuthContext.jsx'
 
 export default function Header() {
-    const { logout, auth } = useContext(AuthContext)
+    const { logout, auth, isLoading } = useContext(AuthContext)
     return (
         <header className='custom-brown '>
             <Navbar expand="lg" variant="dark" className='p-3'>
@@ -47,6 +47,13 @@ export default function Header() {
                             <Button variant="outline-light" onClick={logout}>Déconnexion</Button>
                         ) : (
                         <Button variant="light" as={Link} to="/login">Connexion</Button>
+                        )}
+                        {isLoading && (
+                            <div className="ms-3 d-flex align-items-center">
+                                <div className="spinner-border text-light" role="status" style={{width: "1.5rem", height: "1.5rem"}}>
+                                <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                         )}
                         </Nav>
                     </Navbar.Collapse>

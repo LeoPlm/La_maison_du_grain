@@ -16,6 +16,7 @@ export const Cart = () => {
   const [totalPriceSecure, setTotalPriceSecure] = useState(0)
   const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.items)
+  const [message, setMessage] = useState(false)
 
   const [detailCommande, setDetailCommande] = useState({
     article : cartItems.map(item => item._id),
@@ -23,6 +24,10 @@ export const Cart = () => {
   })
 
   const handlePayment = async() =>{
+    if(!auth){
+      setMessage(true)
+      return
+    }
     try{
       const detailsIds = await Promise.all(
         detailCommande.article.map(async(articleId, i) =>{
@@ -61,10 +66,10 @@ export const Cart = () => {
   return (
     <Container className="mt-4">
       {items.length === 0 ? (
-        <p className="text-center"><span className='bg-brown-light rounded'>Pas d'articles dans le panier</span></p>
+        <p className="text-center"><span className='bg-brown-light rounded p-2 text-white'>Pas d'articles dans le panier</span></p>
       ) : (
         <>
-          <h2 className="mb-4"><span className='bg-brown-light rounded'>Bonjour, vous avez commandé :</span></h2>
+          <h2 className="mb-4"><span className='bg-brown-light rounded p-1'>Bonjour, vous avez commandé :</span></h2>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -83,9 +88,6 @@ export const Cart = () => {
               ))}
             </tbody>
           </Table>
-          <p className="text-right">
-            <strong>Total :</strong> {totalPrice} €
-          </p>
           <Row className="justify-content-end">
             <Col xs="auto">
               <Button variant="danger" onClick={handleClick}>
@@ -94,6 +96,11 @@ export const Cart = () => {
             </Col>
             <Col xs="auto">
               <Button variant="primary" onClick={handlePayment}>Payer</Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col className='d-flex justify-content-center'>
+              {message && <p className='text-dark fw-bold text-center mt-3 bg-danger w-75'> Veuillez-vous connecter afin de procéder au paiement</p>}
             </Col>
           </Row>
         </>
